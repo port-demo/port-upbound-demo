@@ -1,0 +1,31 @@
+name: Apply Cluster changes
+
+on:
+  push:
+    branches: main
+    paths: .up/clusters/**.yaml
+
+jobs:
+  apply-clusters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+      - name: Install Kubectl
+        uses: azure/setup-kubectl@v3
+        id: install-kubectl
+      - name: Install Upbound CLI
+        run: |
+          curl -sL "https://cli.upbound.io" | sh
+          sudo mv up /usr/local/bin/
+      - name: Connect to Upbound using CLI + Fetch kubeconfig
+        run: |
+          up login -t ${{ secrets.UPBOUND_TOKEN }}
+          up ctp kubeconfig get -a port morp -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+
+      - name: Apply clusters to Upbound
+        run: |
+          kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/ --recursive
+      
+  

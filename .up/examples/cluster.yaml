@@ -1,0 +1,17 @@
+apiVersion: k8s.starter.org/v1alpha1
+kind: KubernetesCluster
+metadata:
+  name: my-cluster
+  namespace: default
+spec:
+  id: my-cluster
+  parameters:
+    nodes:
+      count: 3
+      size: small
+    services:
+      operators:
+        prometheus:
+          version: "34.5.1"
+  writeConnectionSecretToRef:
+    name: my-cluster-kubeconfig
