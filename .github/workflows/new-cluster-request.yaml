@@ -45,7 +45,6 @@ jobs:
           
           echo "New cluster's YAML:"
           cat .up/clusters/${{ inputs.cluster-name }}.yaml
-
       - name: Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v4
@@ -54,6 +53,18 @@ jobs:
           title: "New cluster request: ${{ inputs.cluster-name }}"
           commit-message: "Create new cluster in upbound called ${{ inputs.cluster-name }}"
 
-
-      
-  
+      - name: "Report new EKS cluster"
+        if: ${{ always() }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          identifier: ${{ inputs.cluster-name }}
+          title: ${{ inputs.cluster-name }}
+          blueprint: eks_cluster
+          properties: |
+            {}
+          relations: |
+            {
+                "upbound_control_plane": "port"
+            }
