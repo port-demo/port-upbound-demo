@@ -30,18 +30,18 @@ jobs:
 
       - name: Delete cluster from Upbound
         run: |
-          kubectl --kubeconfig kubeconfig.yaml delete -f .up/clusters/${{ fromJson(inputs.port_payload).payload.entity.identifier }}.yaml
+          kubectl --kubeconfig kubeconfig.yaml delete -f .up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
       
       - name: Delete cluster yaml file
         run: | 
-          rm -f .up/clusters/.up/clusters/${{ fromJson(inputs.port_payload).payload.entity.identifier }}.yaml
+          rm -f .up/clusters/.up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
 
       - name: Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v4
         with:
-          branch: "DELETE-CLUSTER-REQUEST-${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
-          title: "Delete cluster request: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
+          branch: "DELETE-CLUSTER-REQUEST-${{ fromJson(inputs.port_payload).context.entity }}"
+          title: "Delete cluster request: ${{ fromJson(inputs.port_payload).context.entity }}"
           commit-message: "Delete cluster in upbound called ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
 
       - name: Merge Pull Request
@@ -56,7 +56,7 @@ jobs:
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
-          identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
+          identifier: ${{ fromJson(inputs.port_payload).context.entity }}
           blueprint: eks_cluster
           operation: DELETE
   
