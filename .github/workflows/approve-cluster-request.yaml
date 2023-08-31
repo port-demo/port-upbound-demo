@@ -109,6 +109,7 @@ jobs:
   apply-cluster-changes:
     uses: ./.github/workflows/apply-clusters.yaml
     if: ${{ always() }}
+    secrets: inherit
     needs:
       - approve-cluster-request-call
       - approve-cluster-request-port
