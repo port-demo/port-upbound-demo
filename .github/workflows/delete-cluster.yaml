@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  apply-clusters:
+  delete-cluster:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,7 +51,7 @@ jobs:
           number: ${{ steps.create-pr.outputs.pull-request-number}}
           method: squash
 
-      - name: "Delete EKS cluster request"
+      - name: "Delete EKS cluster from Port"
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
