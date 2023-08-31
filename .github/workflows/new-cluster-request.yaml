@@ -8,7 +8,7 @@ on:
         required: true
         description: The cluster name to request
       node-count:
-        type: string
+        type: number
         required: false
         description: Number of nodes for the cluster
         default: "1"
