@@ -1,0 +1,17 @@
+apiVersion: k8s.starter.org/v1alpha1
+kind: KubernetesCluster
+metadata:
+  name: test1
+  namespace: default
+spec:
+  id: test1
+  parameters:
+    nodes:
+      count: 1
+      size: small
+    services:
+      operators:
+        prometheus:
+          version: "34.5.1"
+  writeConnectionSecretToRef:
+    name: test1-kubeconfig
