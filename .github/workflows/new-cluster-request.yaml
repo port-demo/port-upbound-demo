@@ -85,6 +85,7 @@ jobs:
   force-approve-request:
     uses: ./.github/workflows/approve-cluster-request.yaml
     if: ${{ inputs.force == true }}
+    secrets: inherit
     needs: create-cluster-request
     with:
       pr-id: ${{ needs.create-cluster-request.outputs.pr-id }}
