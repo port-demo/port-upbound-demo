@@ -81,7 +81,6 @@ jobs:
                 "upbound_control_plane": "port"
             }
 
-
   force-approve-request:
     uses: ./.github/workflows/approve-cluster-request.yaml
     if: ${{ inputs.force == true }}
