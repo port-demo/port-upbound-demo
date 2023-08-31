@@ -40,6 +40,7 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v4
         with:
+          add-paths: .up/clusters
           branch: "DELETE-CLUSTER-REQUEST-${{ fromJson(inputs.port_payload).context.entity }}"
           title: "Delete cluster request: ${{ fromJson(inputs.port_payload).context.entity }}"
           commit-message: "Delete cluster in upbound called ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
