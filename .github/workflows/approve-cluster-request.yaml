@@ -105,3 +105,9 @@ jobs:
             {
                 "upbound_control_plane": "port"
             }
+        
+  apply-cluster-changes:
+    uses: ./.github/workflows/apply-clusters.yaml
+    needs:
+      - approve-cluster-request-call
+      - approve-cluster-request-port

@@ -4,6 +4,7 @@ on:
   push:
     branches: main
     paths: .up/clusters/**.yaml
+  workflow_call:
 
 jobs:
   apply-clusters:
