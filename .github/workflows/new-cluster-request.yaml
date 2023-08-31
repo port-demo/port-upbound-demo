@@ -87,7 +87,7 @@ jobs:
     if: ${{ inputs.force == true }}
     needs: create-cluster-request
     with:
-      pr-id: "${{ needs.create-cluster-request.outputs.pr-id }}"
+      pr-id: ${{ needs.create-cluster-request.outputs.pr-id }}
       cluster-name: ${{ inputs.cluster-name }}
-      node-count: "${{ inputs.node-count }}"
+      node-count: ${{ inputs.node-count }}
       node-size: ${{ inputs.node-size }}
