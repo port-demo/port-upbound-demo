@@ -1,0 +1,17 @@
+apiVersion: k8s.starter.org/v1alpha1
+kind: KubernetesCluster
+metadata:
+  name: morp3-force
+  namespace: default
+spec:
+  id: morp3-force
+  parameters:
+    nodes:
+      count: 3
+      size: small
+    services:
+      operators:
+        prometheus:
+          version: "34.5.1"
+  writeConnectionSecretToRef:
+    name: morp3-force-kubeconfig
