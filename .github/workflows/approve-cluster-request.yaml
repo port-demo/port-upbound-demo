@@ -78,13 +78,13 @@ jobs:
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ fromJson(inputs.port_payload).payload.properties.pr_id }}
+          number: ${{ fromJson(inputs.port_payload).payload.entity.properties.pr_id }}
 
       - name: Merge Pull Request
         uses: juliangruber/merge-pull-request-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ fromJson(inputs.port_payload).payload.properties.pr_id }}
+          number: ${{ fromJson(inputs.port_payload).payload.entity.properties.pr_id }}
           method: squash
   
       - name: "Report new EKS cluster to Port"
