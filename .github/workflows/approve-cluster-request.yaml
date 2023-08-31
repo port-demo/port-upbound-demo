@@ -13,13 +13,13 @@ on:
       pr-id:
         required: true
         description: "PR ID to approve"
-        type: number
+        type: string
       cluster-name:
         type: string
         required: true
         description: The cluster name to request
       node-count:
-        type: number
+        type: string
         required: true
         description: Number of nodes for the cluster
       node-size:
