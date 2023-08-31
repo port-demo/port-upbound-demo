@@ -96,7 +96,7 @@ jobs:
           identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
           title: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
           blueprint: eks_cluster
-          properties: |
+          properties: | 
             {
               "node_size": "${{ fromJson(inputs.port_payload).payload.entity.properties.node_size }}",
               "node_count": ${{ fromJson(inputs.port_payload).payload.entity.properties.node_count }}
@@ -108,6 +108,7 @@ jobs:
         
   apply-cluster-changes:
     uses: ./.github/workflows/apply-clusters.yaml
+    if: ${{ always() }}
     needs:
       - approve-cluster-request-call
       - approve-cluster-request-port
