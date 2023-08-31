@@ -1,0 +1,54 @@
+name: Delete Cluster
+
+on:
+  workflow_dispatch:
+    inputs:
+      port_payload:
+        required: true
+        description: "Port's payload"
+        type: string
+        
+jobs:
+  apply-clusters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          ref: main
+      - name: Install Kubectl
+        uses: azure/setup-kubectl@v3
+        id: install-kubectl
+      - name: Install Upbound CLI
+        run: |
+          curl -sL "https://cli.upbound.io" | sh
+          sudo mv up /usr/local/bin/
+      - name: Connect to Upbound using CLI + Fetch kubeconfig
+        run: |
+          up login -t ${{ secrets.UPBOUND_TOKEN }}
+          up ctp kubeconfig get -a port morp -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+
+      - name: Delete cluster from Upbound
+        run: |
+          kubectl --kubeconfig kubeconfig.yaml delete -f .up/clusters/${{ fromJson(inputs.port_payload).payload.entity.identifier }}.yaml
+      
+      - name: Delete cluster yaml file
+        run: | 
+          rm -f .up/clusters/.up/clusters/${{ fromJson(inputs.port_payload).payload.entity.identifier }}.yaml
+
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: "DELETE-CLUSTER-REQUEST-${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
+          title: "Delete cluster request: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
+          commit-message: "Delete cluster in upbound called ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
+
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.create-pr.outputs.pull-request-number}}
+          method: squash
+
+  

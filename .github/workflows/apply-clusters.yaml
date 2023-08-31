@@ -1,9 +1,6 @@
 name: Apply Cluster changes
 
 on:
-  push:
-    branches: main
-    paths: .up/clusters/**.yaml
   workflow_call:
 
 jobs:
