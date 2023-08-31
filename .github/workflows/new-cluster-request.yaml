@@ -8,10 +8,10 @@ on:
         required: true
         description: The cluster name to request
       node-count:
-        type: number
+        type: string
         required: false
         description: Number of nodes for the cluster
-        default: 1
+        default: "1"
       node-size:
         required: false
         description: "Node size"
@@ -21,10 +21,17 @@ on:
           - small
           - medium
           - large
+      force:
+        required: false
+        type: boolean
+        default: false
+        description: If true, the cluster will be automatically created without waiting for approval
 
 jobs:
   create-cluster-request:
     runs-on: ubuntu-latest
+    outputs:
+      pr-id: ${{ steps.create-pr.outputs.pull-request-number }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -53,18 +60,34 @@ jobs:
           title: "New cluster request: ${{ inputs.cluster-name }}"
           commit-message: "Create new cluster in upbound called ${{ inputs.cluster-name }}"
 
-      - name: "Report new EKS cluster"
-        if: ${{ always() }}
+      - name: "Report new EKS cluster request to Port"
+        if: ${{ inputs.force == false }}
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           identifier: ${{ inputs.cluster-name }}
           title: ${{ inputs.cluster-name }}
-          blueprint: eks_cluster
+          blueprint: eks_cluster_request
           properties: |
-            {}
+            {
+              "request_pr_url": "${{ steps.create-pr.outputs.pull-request-url }}",
+              "request_pr_number": ${{ steps.create-pr.outputs.pull-request-number }},
+              "node_size": "${{ inputs.node-size }}",
+              "node_count": "${{ inputs.node-count }}"
+            }
           relations: |
             {
                 "upbound_control_plane": "port"
             }
+
+
+  force-approve-request:
+    uses: ./.github/workflows/approve-cluster-request.yaml
+    if: ${{ inputs.force == true }}
+    needs: create-cluster-request
+    with:
+      pr-id: ${{ needs.create-cluster-request.outputs.pr-id }}
+      cluster-name: ${{ inputs.cluster-name }}
+      node-count: ${{ inputs.node-count }}
+      node-size: ${{ inputs.node-size }}

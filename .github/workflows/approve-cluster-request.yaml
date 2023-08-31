@@ -1,0 +1,107 @@
+name: Approve new cluster PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      port_payload:
+        required: true
+        description: "Port's payload"
+        type: string
+
+  workflow_call:
+    inputs:
+      pr-id:
+        required: true
+        description: "PR ID to approve"
+        type: number
+      cluster-name:
+        type: string
+        required: true
+        description: The cluster name to request
+      node-count:
+        type: number
+        required: true
+        description: Number of nodes for the cluster
+      node-size:
+        required: true
+        description: "Node size"
+        type: string
+
+jobs:
+  approve-cluster-request-call:
+    if: ${{ github.event_name == 'workflow_call' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+      - name: Approve PR
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ inputs.pr-id }}
+
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ inputs.pr-id }}
+          method: squash
+
+      - name: "Report new EKS cluster to Port"
+        if: ${{ always() }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          identifier: ${{ inputs.cluster-name }}
+          title: ${{ inputs.cluster-name }}
+          blueprint: eks_cluster
+          properties: |
+            {
+              "node_size": "${{ inputs.node-size }}",
+              "node_count": "${{ inputs.node-count }}"
+            }
+          relations: |
+            {
+                "upbound_control_plane": "port"
+            }
+
+  approve-cluster-request-port:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+      - name: Approve cluster pull request
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ fromJson(inputs.port_payload).payload.properties.pr_id }}
+
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ fromJson(inputs.port_payload).payload.properties.pr_id }}
+          method: squash
+  
+      - name: "Report new EKS cluster to Port"
+        if: ${{ always() }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
+          title: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
+          blueprint: eks_cluster
+          properties: |
+            {
+              "node_size": "${{ fromJson(inputs.port_payload).payload.entity.properties.node_size }}",
+              "node_count": ${{ fromJson(inputs.port_payload).payload.entity.properties.node_count }}
+            }
+          relations: |
+            {
+                "upbound_control_plane": "port"
+            }
