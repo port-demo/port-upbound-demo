@@ -7,7 +7,7 @@ on:
         required: true
         description: "Port's payload"
         type: string
-        
+
 jobs:
   apply-clusters:
     runs-on: ubuntu-latest
@@ -51,4 +51,12 @@ jobs:
           number: ${{ steps.create-pr.outputs.pull-request-number}}
           method: squash
 
+      - name: "Delete EKS cluster request"
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
+          blueprint: eks_cluster
+          operation: DELETE
   
