@@ -96,7 +96,7 @@ jobs:
                 "upbound_control_plane": "port"
             }
 
-      - name: "Delete EKS cluster request"
+      - name: "Approve EKS cluster request"
         if: ${{ always() }}
         uses: port-labs/port-github-action@v1
         with:
@@ -104,7 +104,10 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
           blueprint: eks_cluster_request
-          operation: DELETE
+          properties: |
+            {
+              "status": "Approved"
+            }
         
   apply-cluster-changes:
     uses: ./.github/workflows/apply-clusters.yaml
