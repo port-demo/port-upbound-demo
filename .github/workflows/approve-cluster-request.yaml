@@ -164,7 +164,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: apply-cluster-changes
     steps:
-      - if: github.event.inputs.port_payload == ''
+      - if: inputs.run-id != ''
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
@@ -175,7 +175,7 @@ jobs:
           summary: "Created cluster successfully"
           logMessage: "Applied cluster to Upbound successfuly✅"
           
-      - if: github.event.inputs.port_payload != ''
+      - if: inputs.run-id == ''
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
