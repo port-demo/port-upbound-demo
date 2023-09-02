@@ -12,10 +12,20 @@ jobs:
   delete-cluster:
     runs-on: ubuntu-latest
     steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Initiating deletion job ⚙️"  
+
       - uses: actions/checkout@v3
         with:
           persist-credentials: true
           ref: main
+
       - name: Install Kubectl
         uses: azure/setup-kubectl@v3
         id: install-kubectl
@@ -23,10 +33,29 @@ jobs:
         run: |
           curl -sL "https://cli.upbound.io" | sh
           sudo mv up /usr/local/bin/
+      
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Connecting to Upbound control plane"  
+  
       - name: Connect to Upbound using CLI + Fetch kubeconfig
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
           up ctp kubeconfig get -a port morp -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Deleteing CRDs from Upbound + claim files from the repository❌"  
 
       - name: Delete cluster from Upbound
         run: |
@@ -59,6 +88,18 @@ jobs:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           identifier: ${{ fromJson(inputs.port_payload).context.entity }}
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
           blueprint: eks_cluster
           operation: DELETE
+
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          status: "SUCCESS"
+          summary: "Deletion successful🚀"
+          logMessage: "Deleted EKS Cluster Port entity for: ${{ fromJson(inputs.port_payload).context.entity }}"  
   

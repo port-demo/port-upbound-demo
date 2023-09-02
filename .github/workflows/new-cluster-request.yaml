@@ -26,6 +26,10 @@ on:
         type: boolean
         default: false
         description: If true, the cluster will be automatically created without waiting for approval
+      port_payload:
+        type: string
+        required: true
+        description: Port Payload
   
 jobs:
   create-cluster-request:
@@ -33,9 +37,19 @@ jobs:
     outputs:
       pr-id: ${{ steps.create-pr.outputs.pull-request-number }}
     steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Initiating EKS clutser request job ⚙️"  
+
       - uses: actions/checkout@v3
         with:
           persist-credentials: true
+
       - name: Manipulate YAML file
         run: |
           if [[ ! -f ".up/clusters/${{ inputs.cluster-name }}.yaml" ]]; then
@@ -52,6 +66,16 @@ jobs:
           
           echo "New cluster's YAML:"
           cat .up/clusters/${{ inputs.cluster-name }}.yaml
+
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Creating pull request for the new cluster"  
+
       - name: Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v4
@@ -69,6 +93,7 @@ jobs:
           identifier: ${{ inputs.cluster-name }}
           title: ${{ inputs.cluster-name }}
           blueprint: eks_cluster_request
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
           properties: |
             {
               "request_pr_url": "${{ steps.create-pr.outputs.pull-request-url }}",
@@ -80,6 +105,26 @@ jobs:
             {
                 "upbound_control_plane": "port"
             }
+      - uses: port-labs/port-github-action@v1
+        if: ${{ inputs.force == false }}
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          link: ${{ steps.create-pr.outputs.pull-request-url }}
+          icon: GithubActions
+          logMessage: "Pull request created: ${{ steps.create-pr.outputs.pull-request-url }}"  
+
+      - uses: port-labs/port-github-action@v1
+        if: ${{ inputs.force == true }}
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Force flag was set to 'true', auto-creating..."  
 
   force-approve-request:
     uses: ./.github/workflows/approve-cluster-request.yaml
@@ -91,4 +136,5 @@ jobs:
       cluster-name: ${{ inputs.cluster-name }}
       node-count: ${{ inputs.node-count }}
       node-size: ${{ inputs.node-size }}
+      run-id: ${{ fromJson(inputs.port_payload).context.runId }}
       
