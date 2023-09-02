@@ -44,7 +44,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Initiating EKS clutser request job ⚙️"  
+          logMessage: "Initiating EKS clutser request job 🏗️"  
 
       - uses: actions/checkout@v3
         with:
@@ -74,7 +74,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Creating pull request for the new cluster"  
+          logMessage: "Creating pull request for the new cluster⏳"  
 
       - name: Create Pull Request
         id: create-pr
