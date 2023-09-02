@@ -162,7 +162,9 @@ jobs:
 
   update-port:
     runs-on: ubuntu-latest
-    needs: apply-cluster-changes
+    needs:
+      - apply-cluster-changes
+    if: ${{ always() }}
     steps:
       - name: Update port action run
         if: ${{ inputs.run-id != '' }}
