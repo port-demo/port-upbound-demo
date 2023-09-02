@@ -19,7 +19,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Initiating deletion job ⚙️"  
+          logMessage: "Initiating deletion job 🏗️"  
 
       - uses: actions/checkout@v3
         with:
@@ -41,7 +41,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Connecting to Upbound control plane"  
+          logMessage: "Connecting to Upbound control plane 🛰️"  
   
       - name: Connect to Upbound using CLI + Fetch kubeconfig
         run: |
@@ -55,7 +55,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Deleteing CRDs from Upbound + claim files from the repository❌"  
+          logMessage: "Deleteing CRDs from Upbound + claim files from the repository for cluster: ${{ fromJson(inputs.port_payload).context.entity }}❌"  
 
       - name: Delete cluster from Upbound
         run: |
