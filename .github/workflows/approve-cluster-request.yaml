@@ -177,7 +177,7 @@ jobs:
           logMessage: "Applied cluster to Upbound successfuly✅"
           
       - name: Update port action run
-        if: ${{ inputs.run-id == '' }}
+        if: ${{ github.event.inputs.port_payload != '' }}
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
