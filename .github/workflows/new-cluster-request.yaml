@@ -137,4 +137,3 @@ jobs:
       node-count: ${{ inputs.node-count }}
       node-size: ${{ inputs.node-size }}
       run-id: ${{ fromJson(inputs.port_payload).context.runId }}
-      port_payload: ""
