@@ -55,7 +55,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Deleteing CRDs from Upbound + claim files from the repository for cluster: ${{ fromJson(inputs.port_payload).context.entity }}❌"  
+          logMessage: "❌ Deleteing CRDs from Upbound + claim files from the repository for cluster: ${{ fromJson(inputs.port_payload).context.entity }} ❌"  
 
       - name: Delete cluster from Upbound
         run: |
@@ -101,5 +101,5 @@ jobs:
           icon: GithubActions
           status: "SUCCESS"
           summary: "Deletion successful🚀"
-          logMessage: "Deleted EKS Cluster Port entity for: ${{ fromJson(inputs.port_payload).context.entity }}"  
+          logMessage: "Deletion successful ✅ Deleted EKS Cluster Port entity for: ${{ fromJson(inputs.port_payload).context.entity }}"  
   
