@@ -88,6 +88,14 @@ jobs:
     if: github.event.inputs.port_payload != ''
     runs-on: ubuntu-latest
     steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Approving EKS cluster request: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"  
       - uses: actions/checkout@v3
         with:
           persist-credentials: true
@@ -133,6 +141,15 @@ jobs:
               "status": "Approved",
               "eks_cluster": "${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
             }
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Approved EKS cluster request, and created new Port entity for the EKS cluster🚀 Applying Clusters to Upbound control plane..."
+
         
   apply-cluster-changes:
     uses: ./.github/workflows/apply-clusters.yaml
