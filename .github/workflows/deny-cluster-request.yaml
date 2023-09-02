@@ -1,0 +1,62 @@
+name: Approve new cluster PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      port_payload:
+        required: true
+        description: "Port's payload"
+        type: string
+
+jobs:
+  deny-cluster-request-port:
+    if: github.event.inputs.port_payload != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          logMessage: "Denying EKS cluster request: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"  
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Close Pull Request
+        uses: peter-evans/close-pull@v3
+        with:
+          pull-request-number: ${{ fromJson(inputs.port_payload).payload.entity.properties.request_pr_number }}
+          comment: "Cluster request ${{ fromJson(inputs.port_payload).payload.entity.identifier }} was denied ❌. Pull request closed."
+          delete-branch: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Deny EKS cluster request"
+        if: ${{ always() }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          identifier: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}
+          blueprint: eks_cluster_request
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          properties: |
+            {
+              "status": "Denied"
+            }
+            
+      - uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_payload).context.runId }}
+          icon: GithubActions
+          summary: "Request denied."
+          status: "SUCCESS"
+          logMessage: "Request updated - status 'denied' ❌"
+
+        
+ 
