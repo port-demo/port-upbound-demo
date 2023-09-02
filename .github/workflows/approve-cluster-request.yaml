@@ -29,14 +29,11 @@ on:
       run-id:
         type: string
         required: false
-      port_payload:
-        type: string
         default: ""
-        required: false
 
 jobs:
   approve-cluster-request-call:
-    if: github.event.inputs.port_payload == ''
+    if: github.event.inputs.port_payload == '' || inputs.run-id != ''
     runs-on: ubuntu-latest
     steps:
       - uses: port-labs/port-github-action@v1
@@ -89,7 +86,7 @@ jobs:
           logMessage: "Approved EKS cluster request, and created new Port entity for the EKS cluster🚀 Applying Clusters to Upbound control plane..."
 
   approve-cluster-request-port:
-    if: github.event.inputs.port_payload != ''
+    if: github.event.inputs.port_payload != '' && inputs.run-id == ''
     runs-on: ubuntu-latest
     steps:
       - uses: port-labs/port-github-action@v1
