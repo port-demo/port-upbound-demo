@@ -34,7 +34,8 @@ jobs:
       
       - name: Delete cluster yaml file
         run: | 
-          rm -f .up/clusters/.up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
+          git rm -f .up/clusters/.up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
+          git status
 
       - name: Create Pull Request
         id: create-pr
