@@ -1,10 +1,10 @@
 apiVersion: k8s.starter.org/v1alpha1
 kind: KubernetesCluster
 metadata:
-  name: test-test
+  name: final-force-request
   namespace: default
 spec:
-  id: test-test
+  id: final-force-request
   parameters:
     nodes:
       count: 1
@@ -14,4 +14,4 @@ spec:
         prometheus:
           version: "34.5.1"
   writeConnectionSecretToRef:
-    name: test-test-kubeconfig
+    name: final-force-request-kubeconfig
