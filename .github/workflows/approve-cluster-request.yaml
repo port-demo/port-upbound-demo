@@ -175,6 +175,7 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ inputs.run-id }}
           icon: GithubActions
+          summary: "Created cluster successfully"
           logMessage: "Applied cluster to Upbound successfuly✅"
           
       - if: github.event.inputs.port_payload != ''
