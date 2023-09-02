@@ -1,0 +1,17 @@
+apiVersion: k8s.starter.org/v1alpha1
+kind: KubernetesCluster
+metadata:
+  name: test-force-last
+  namespace: default
+spec:
+  id: test-force-last
+  parameters:
+    nodes:
+      count: 1
+      size: small
+    services:
+      operators:
+        prometheus:
+          version: "34.5.1"
+  writeConnectionSecretToRef:
+    name: test-force-last-kubeconfig
