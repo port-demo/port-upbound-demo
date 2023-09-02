@@ -106,7 +106,8 @@ jobs:
           blueprint: eks_cluster_request
           properties: |
             {
-              "status": "Approved"
+              "status": "Approved",
+              "eks_cluster": "${{ fromJson(inputs.port_payload).payload.entity.identifier }}"
             }
         
   apply-cluster-changes:
