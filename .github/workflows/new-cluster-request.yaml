@@ -21,11 +21,6 @@ on:
           - small
           - medium
           - large
-      force:
-        required: false
-        type: boolean
-        default: false
-        description: If true, the cluster will be automatically created without waiting for approval
       port_payload:
         type: string
         required: true
@@ -85,7 +80,7 @@ jobs:
           commit-message: "Create new cluster in upbound called ${{ inputs.cluster-name }}"
 
       - name: "Report new EKS cluster request to Port"
-        if: ${{ inputs.force == false }}
+        if: ${{ fromJson(inputs.port_payload).action == 'request_new_cluster' }}
         uses: port-labs/port-github-action@v1
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
@@ -105,8 +100,9 @@ jobs:
             {
                 "upbound_control_plane": "port"
             }
+            
       - uses: port-labs/port-github-action@v1
-        if: ${{ inputs.force == false }}
+        if: ${{ fromJson(inputs.port_payload).action == 'request_new_cluster' }}
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
@@ -117,18 +113,18 @@ jobs:
           logMessage: "Pull request created: ${{ steps.create-pr.outputs.pull-request-url }}"  
 
       - uses: port-labs/port-github-action@v1
-        if: ${{ inputs.force == true }}
+        if: ${{ fromJson(inputs.port_payload).action == 'create_new_cluster' }}
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Force flag was set to 'true', auto-creating..."  
+          logMessage: "Creation job run, auto-approving cluster request..."  
 
   force-approve-request:
     uses: ./.github/workflows/approve-cluster-request.yaml
-    if: ${{ inputs.force == true }}
+    if: ${{ fromJson(inputs.port_payload).action == 'create_new_cluster' }}
     secrets: inherit
     needs: create-cluster-request
     with:
