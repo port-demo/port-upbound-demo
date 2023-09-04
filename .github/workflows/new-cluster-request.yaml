@@ -41,7 +41,7 @@ jobs:
           icon: GithubActions
           logMessage: "Initiating EKS clutser request job 🏗️"  
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: true
 
@@ -100,7 +100,7 @@ jobs:
             {
                 "upbound_control_plane": "port"
             }
-            
+
       - uses: port-labs/port-github-action@v1
         if: ${{ fromJson(inputs.port_payload).action == 'request_new_cluster' }}
         with:

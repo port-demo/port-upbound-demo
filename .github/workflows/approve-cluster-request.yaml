@@ -45,7 +45,7 @@ jobs:
           icon: GithubActions
           logMessage: "Approving EKS cluster request: ${{ inputs.cluster-name }}"  
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: true
 
@@ -97,7 +97,7 @@ jobs:
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
           logMessage: "Approving EKS cluster request: ${{ fromJson(inputs.port_payload).payload.entity.identifier }}"  
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: true
 
