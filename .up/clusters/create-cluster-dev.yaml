@@ -1,10 +1,10 @@
 apiVersion: k8s.starter.org/v1alpha1
 kind: KubernetesCluster
 metadata:
-  name: test-cluster
+  name: create-cluster-dev
   namespace: default
 spec:
-  id: test-cluster
+  id: create-cluster-dev
   parameters:
     nodes:
       count: 1
@@ -14,4 +14,4 @@ spec:
         prometheus:
           version: "34.5.1"
   writeConnectionSecretToRef:
-    name: test-cluster-kubeconfig
+    name: create-cluster-dev-kubeconfig
