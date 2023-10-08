@@ -1,0 +1,132 @@
+[
+    {
+      "identifier": "request_new_cluster",
+      "title": "Request new cluster",
+      "icon": "GithubActions",
+      "userInputs": {
+        "properties": {
+          "cluster-name": {
+            "title": "Cluster Name",
+            "type": "string"
+          },
+          "node-size": {
+            "title": "Node Size",
+            "type": "string",
+            "default": "small",
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "enumColors": {
+              "small": "lightGray",
+              "medium": "lightGray",
+              "large": "lightGray"
+            }
+          },
+          "node-count": {
+            "icon": "DefaultProperty",
+            "title": "Node Count",
+            "type": "string",
+            "default": "1"
+          }
+        },
+        "required": [
+          "cluster-name"
+        ],
+        "order": [
+          "cluster-name",
+          "node-size",
+          "node-count"
+        ]
+      },
+      "invocationMethod": {
+        "type": "GITHUB",
+        "omitPayload": false,
+        "omitUserInputs": false,
+        "reportWorkflowStatus": true,
+        "org": "port-demo",
+        "repo": "port-upbound-demo",
+        "workflow": "new-cluster-request.yaml"
+      },
+      "trigger": "CREATE",
+      "requiredApproval": false
+    },
+    {
+      "identifier": "create_new_cluster",
+      "title": "Create new cluster",
+      "icon": "GithubActions",
+      "userInputs": {
+        "properties": {
+          "cluster-name": {
+            "title": "Cluster Name",
+            "type": "string"
+          },
+          "node-size": {
+            "title": "Node Size",
+            "type": "string",
+            "default": "small",
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "enumColors": {
+              "small": "lightGray",
+              "medium": "lightGray",
+              "large": "lightGray"
+            }
+          },
+          "node-count": {
+            "icon": "DefaultProperty",
+            "title": "Node Count",
+            "type": "string",
+            "default": "1"
+          }
+        },
+        "required": [
+          "cluster-name"
+        ],
+        "order": [
+          "cluster-name",
+          "node-size",
+          "node-count"
+        ]
+      },
+      "invocationMethod": {
+        "type": "GITHUB",
+        "omitPayload": false,
+        "omitUserInputs": false,
+        "reportWorkflowStatus": true,
+        "org": "port-demo",
+        "repo": "port-upbound-demo",
+        "workflow": "new-cluster-request.yaml"
+      },
+      "trigger": "CREATE",
+      "requiredApproval": false
+    },
+    {
+      "identifier": "delete_eks_cluster",
+      "title": "Delete EKS Cluster",
+      "icon": "Alert",
+      "userInputs": {
+        "properties": {},
+        "required": [],
+        "order": []
+      },
+      "invocationMethod": {
+        "type": "GITHUB",
+        "omitPayload": false,
+        "omitUserInputs": true,
+        "reportWorkflowStatus": true,
+        "org": "port-demo",
+        "repo": "port-upbound-demo",
+        "workflow": "delete-cluster.yaml"
+      },
+      "trigger": "DELETE",
+      "requiredApproval": true,
+      "approvalNotification": {
+        "type": "email"
+      }
+    }
+  ]
