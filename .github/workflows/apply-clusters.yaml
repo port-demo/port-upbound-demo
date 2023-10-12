@@ -23,9 +23,10 @@ jobs:
           up login -t ${{ secrets.UPBOUND_TOKEN }}
           ls -l
           for CONTROL_PLANE in .up/clusters/*/ ; do
-          echo "$CONTROL_PLANE"
+            echo "$CONTROL_PLANE"
             # Remove trailing slash to get the clean cluster name
             CONTROL_PLANE=${CONTROL_PLANE%/}
+            echo ${CONTROL_PLANE}
           
             # Get the kube config for the specific control plane
             echo "Fetching kubeconfig for ${CONTROLE_PLANE}"
