@@ -32,7 +32,12 @@ jobs:
             echo "Fetching kubeconfig for ${CONTROL_PLANE}"
             up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
             echo "Applying manifests"
-            kubectl --kubeconfig kubeconfig.yaml apply -f ./${CONTROL_PLANE}/ --recursive
+            if [[ ! -f ".up/clusters/${CONTROL_PLANE}/*.yaml" ]]; then
+              kubectl --kubeconfig kubeconfig.yaml apply -f ./${CONTROL_PLANE}/ --recursive
+            else
+              echo "Control plane directory is empty"
+              exit 1
+            fi
           done
 
       
