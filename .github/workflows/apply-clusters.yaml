@@ -26,12 +26,10 @@ jobs:
             CONTROL_PLANE=${CONTROL_PLANE%/}
           
             # Get the kube config for the specific control plane
-            up ctp kubeconfig get -a port "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
-            up ctp kubeconfig get -a port "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            echo "Fetching kubeconfig for ${CONTROLE_PLANE}"
+            up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/${CONTROL_PLANE}/ --recursive
           done
 
-      - name: Apply clusters to Upbound
-        run: |
-          kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/ --recursive
       
   
