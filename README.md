@@ -42,12 +42,12 @@ After completing the [prerequisites](https://github.com/port-demo/port-upbound-d
 ### Create all the necessary files and directory structure
 - `.github/workflows/` - Copy all of the `.yaml` files from this repository, to the new one in the same directory hierarchy. 
 
-Please note that in `delete-cluster.yaml` and `apply-clusters.yaml`, there is an env var configured:
-```bash
-    env:
-      UPBOUND_ORG_ID: port # To be changed
-```
-The value for this environment variable needs to match the Upbound `Organization ID` we set aside earlier.
+    Please note that in `delete-cluster.yaml` and `apply-clusters.yaml`, there is an env var configured:
+    ```bash
+        env:
+        UPBOUND_ORG_ID: port # To be changed
+    ```
+    The value for this environment variable needs to match the Upbound `Organization ID` we set aside earlier.
 
 - `.up/clusters/` - Create this folder in the repository. It will hold subdirectories which will correspond to different Upbound control planes, and each subdirectory will hold all the XR manifests to be deployed in the specific control plane.
 
