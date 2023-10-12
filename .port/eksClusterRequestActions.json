@@ -1,43 +1,43 @@
 [
-    {
-      "identifier": "approve_cluster_request",
-      "title": "Approve Cluster Request",
-      "icon": "GithubActions",
-      "userInputs": {
-        "properties": {},
-        "required": []
-      },
-      "invocationMethod": {
-        "type": "GITHUB",
-        "omitPayload": false,
-        "omitUserInputs": true,
-        "reportWorkflowStatus": true,
-        "org": "port-demo",
-        "repo": "port-upbound-demo",
-        "workflow": "approve-cluster-request.yaml"
-      },
-      "trigger": "DAY-2",
-      "requiredApproval": false
+  {
+    "identifier": "approve_cluster_request",
+    "title": "Approve Cluster Request",
+    "icon": "GithubActions",
+    "userInputs": {
+      "properties": {},
+      "required": []
     },
-    {
-      "identifier": "deny_cluster_request",
-      "title": "Deny cluster request",
-      "icon": "Alert",
-      "userInputs": {
-        "properties": {},
-        "required": []
-      },
-      "invocationMethod": {
-        "type": "GITHUB",
-        "omitPayload": false,
-        "omitUserInputs": true,
-        "reportWorkflowStatus": true,
-        "org": "port-demo",
-        "repo": "port-upbound-demo",
-        "workflow": "deny-cluster-request.yaml"
-      },
-      "trigger": "DAY-2",
-      "description": "Deny this EKS cluster request",
-      "requiredApproval": false
-    }
-  ]
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": false,
+      "omitUserInputs": true,
+      "reportWorkflowStatus": true,
+      "org": "port-demo",
+      "repo": "port-upbound-demo",
+      "workflow": "approve-cluster-request.yaml"
+    },
+    "trigger": "DAY-2",
+    "requiredApproval": false
+  },
+  {
+    "identifier": "deny_cluster_request",
+    "title": "Deny cluster request",
+    "icon": "Alert",
+    "userInputs": {
+      "properties": {},
+      "required": []
+    },
+    "invocationMethod": {
+      "type": "GITHUB",
+      "omitPayload": false,
+      "omitUserInputs": true,
+      "reportWorkflowStatus": true,
+      "org": "port-demo",
+      "repo": "port-upbound-demo",
+      "workflow": "deny-cluster-request.yaml"
+    },
+    "trigger": "DAY-2",
+    "description": "Deny this EKS cluster request",
+    "requiredApproval": false
+  }
+]
