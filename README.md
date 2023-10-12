@@ -6,7 +6,7 @@ The final goal of this demo is to interact with Upbound using Port, and provide 
 All needed manifests and information is in this git repository.
 
 # In this repository
-## Upbound EKS XRD template
+## Upbound XR template
 In `.upbound/examples/cluster.yaml` is the default example provided by the EKSaaS configuration. This file is later used as a template for creating new XRs in the Upbound control planes.
 
 ## Port assets
