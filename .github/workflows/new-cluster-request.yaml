@@ -51,6 +51,7 @@ jobs:
       - name: Manipulate YAML file
         run: |
           if [[ ! -f ".up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml" ]]; then
+            mkdir -p .up/clusters/${{ inputs.control-plane }}
             cp .up/examples/cluster.yaml .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
           else
             echo "This cluster already exists!"
