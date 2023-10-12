@@ -3,6 +3,9 @@ name: Create new cluster PR
 on:
   workflow_dispatch:
     inputs:
+      control-plane:
+        type: string
+        required: true
       cluster-name:
         type: string
         required: true
@@ -47,20 +50,20 @@ jobs:
 
       - name: Manipulate YAML file
         run: |
-          if [[ ! -f ".up/clusters/${{ inputs.cluster-name }}.yaml" ]]; then
-            cp .up/examples/cluster.yaml .up/clusters/${{ inputs.cluster-name }}.yaml
+          if [[ ! -f ".up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml" ]]; then
+            cp .up/examples/cluster.yaml .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
           else
             echo "This cluster already exists!"
             exit 1
           fi
-          yq -i e '.metadata.name = "${{ inputs.cluster-name }}"' .up/clusters/${{ inputs.cluster-name }}.yaml 
-          yq -i e '.spec.id = "${{ inputs.cluster-name }}"' .up/clusters/${{ inputs.cluster-name }}.yaml
-          yq -i e '.spec.parameters.nodes.count = ${{ inputs.node-count }}' .up/clusters/${{ inputs.cluster-name }}.yaml
-          yq -i e '.spec.parameters.nodes.size = "${{ inputs.node-size }}"' .up/clusters/${{ inputs.cluster-name }}.yaml 
-          yq -i e '.spec.writeConnectionSecretToRef.name = "${{ inputs.cluster-name }}-kubeconfig"' .up/clusters/${{ inputs.cluster-name }}.yaml
+          yq -i e '.metadata.name = "${{ inputs.cluster-name }}"' .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml 
+          yq -i e '.spec.id = "${{ inputs.cluster-name }}"' .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
+          yq -i e '.spec.parameters.nodes.count = ${{ inputs.node-count }}' .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
+          yq -i e '.spec.parameters.nodes.size = "${{ inputs.node-size }}"' .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml 
+          yq -i e '.spec.writeConnectionSecretToRef.name = "${{ inputs.cluster-name }}-kubeconfig"' .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
           
           echo "New cluster's YAML:"
-          cat .up/clusters/${{ inputs.cluster-name }}.yaml
+          cat .up/clusters/${{ inputs.control-plane }}/${{ inputs.cluster-name }}.yaml
 
       - uses: port-labs/port-github-action@v1
         with:
@@ -69,7 +72,15 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "Creating pull request for the new cluster⏳"  
+          logMessage: |
+            Cluster request information: 
+              Upbound control plane name: ${{ inputs.control-plane }}
+              Cluster name: ${{ inputs.cluster-name }}
+              Node size: ${{ inputs.node-size }}
+              Node Count: ${{ inputs.node-count }}
+
+            Creating pull request for the new cluster⏳
+            
 
       - name: Create Pull Request
         id: create-pr
@@ -98,7 +109,7 @@ jobs:
             }
           relations: |
             {
-                "upbound_control_plane": "port"
+                "upbound_control_plane": "${{ inputs.control-plane }}"
             }
 
       - uses: port-labs/port-github-action@v1
@@ -133,3 +144,4 @@ jobs:
       node-count: ${{ inputs.node-count }}
       node-size: ${{ inputs.node-size }}
       run-id: ${{ fromJson(inputs.port_payload).context.runId }}
+      control-plane: ${{ inputs.control-plane }}

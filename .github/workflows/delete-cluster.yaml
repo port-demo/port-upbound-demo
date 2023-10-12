@@ -46,7 +46,7 @@ jobs:
       - name: Connect to Upbound using CLI + Fetch kubeconfig
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          up ctp kubeconfig get -a port morp -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+          up ctp kubeconfig get -a port ${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
 
       - uses: port-labs/port-github-action@v1
         with:
@@ -55,15 +55,18 @@ jobs:
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_payload).context.runId }}
           icon: GithubActions
-          logMessage: "❌ Deleteing CRDs from Upbound + claim files from the repository for cluster: ${{ fromJson(inputs.port_payload).context.entity }} ❌"  
+          logMessage: |
+            ❌ Deleteing CRDs from Upbound + claim files from the repository for:
+              Control plane: ${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }}
+              Cluster: ${{ fromJson(inputs.port_payload).context.entity }} ❌
 
       - name: Delete cluster from Upbound
         run: |
-          kubectl --kubeconfig kubeconfig.yaml delete -f .up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
+          kubectl --kubeconfig kubeconfig.yaml delete -f .up/clusters/${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }}/${{ fromJson(inputs.port_payload).context.entity }}.yaml
       
       - name: Delete cluster yaml file
         run: | 
-          git rm -f .up/clusters/${{ fromJson(inputs.port_payload).context.entity }}.yaml
+          git rm -f .up/clusters/${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }}/${{ fromJson(inputs.port_payload).context.entity }}.yaml
           git status
 
       - name: Create Pull Request

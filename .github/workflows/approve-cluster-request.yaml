@@ -14,6 +14,9 @@ on:
         required: true
         description: "PR ID to approve"
         type: string
+      control-plane:
+        type: string
+        required: true
       cluster-name:
         type: string
         required: true
@@ -73,7 +76,7 @@ jobs:
             }
           relations: |
             {
-                "upbound_control_plane": "port"
+                "upbound_control_plane": "${{ inputs.control-plane }}"
             }
 
       - uses: port-labs/port-github-action@v1
@@ -125,7 +128,7 @@ jobs:
             }
           relations: |
             {
-                "upbound_control_plane": "port"
+                "upbound_control_plane": "${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }}"
             }
 
       - name: "Approve EKS cluster request"

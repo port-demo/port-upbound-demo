@@ -18,10 +18,17 @@ jobs:
         run: |
           curl -sL "https://cli.upbound.io" | sh
           sudo mv up /usr/local/bin/
-      - name: Connect to Upbound using CLI + Fetch kubeconfig
+      - name: Connect to Upbound using CLI an apply manifests to all of the control planes
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          up ctp kubeconfig get -a port morp -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+          for CONTROL_PLANE in */ ; do
+            # Remove trailing slash to get the clean cluster name
+            CONTROL_PLANE=${CONTROL_PLANE%/}
+          
+            # Get the kube config for the specific control plane
+            up ctp kubeconfig get -a "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            up ctp kubeconfig get -a port "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+          done
 
       - name: Apply clusters to Upbound
         run: |
