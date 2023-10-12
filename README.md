@@ -54,8 +54,7 @@ After completing the [prerequisites](https://github.com/port-demo/port-upbound-d
 - `.up/examples/cluster.yaml` - Copy this file to the new repository in the same directory hierarchy.
 
 ### Create repository secrets for the Github actions to use
-Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) to add required secrets to the repository.
-These are the secrets the need to be created:
+Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) to add required secrets to that repository. These are the secrets the need to be created:
 * `UPBOUND_TOKEN` - The Upbound organization's API token;
 * `PORT_CLIENT_ID` - The Port organization's client id;
 * `PORT_CLIENT_SECRET` - The Port organization's client secret.
