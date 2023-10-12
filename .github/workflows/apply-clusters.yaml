@@ -21,15 +21,15 @@ jobs:
       - name: Connect to Upbound using CLI an apply manifests to all of the control planes
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          for CONTROL_PLANE in .up/clusters/* ; do
+          for CONTROL_PLANE in .up/clusters/*/ ; do
             # Remove trailing slash to get the clean cluster name
             CONTROL_PLANE=${CONTROL_PLANE%/}
           
             # Get the kube config for the specific control plane
             echo "Fetching kubeconfig for ${CONTROLE_PLANE}"
-            up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token "" # ${{ secrets.UPBOUND_TOKEN }}
             echo "Applying manifests"
-            kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/${CONTROL_PLANE}/ --recursive
+            kubectl --kubeconfig kubeconfig.yaml apply -f ${CONTROL_PLANE} --recursive
           done
 
       
