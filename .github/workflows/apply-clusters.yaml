@@ -21,7 +21,6 @@ jobs:
       - name: Connect to Upbound using CLI an apply manifests to all of the control planes
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          ls -l
           cd .up/clusters
           for CONTROL_PLANE in */ ; do
             echo "$CONTROL_PLANE"
@@ -33,7 +32,7 @@ jobs:
             echo "Fetching kubeconfig for ${CONTROL_PLANE}"
             up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
             echo "Applying manifests"
-            kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/${CONTROL_PLANE}/ --recursive
+            kubectl --kubeconfig kubeconfig.yaml apply -f ./${CONTROL_PLANE}/ --recursive
           done
 
       
