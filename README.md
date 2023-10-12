@@ -7,13 +7,13 @@ All needed manifests and information is in this git repository.
 
 # In this repository
 ## <ins>Upbound XR template</ins>
-In the `.upbound/examples/cluster.yaml` file is the default example provided by the EKSaaS configuration. This file is  used as a base template for creating new XRs in the Upbound control planes.
+In the `.upbound/examples/cluster.yaml` file ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.up/examples/cluster.yaml)) is the default example provided by the EKSaaS configuration. This file is  used as a base template for creating new XRs in the Upbound control planes.
 
 ## <ins>Port assets</ins>
 In this repository, there is a `.port/` directory ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.port)). It holds manifests which will be used in this guide to create blueprints, and their corresponding Port actions.
 
 ## <ins>Github workflows - The Port actions backend</ins>
-The `.github/workflows/` directory holds the necessary Github action definitions. These actions will be used as the backend for the different Port actions for interacting with Upbound.
+The `.github/workflows/` directory ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.github/workflows)) holds the necessary Github action definitions. These actions will be used as the backend for the different Port actions for interacting with Upbound.
 
 The demo starts off on a completely clean slate - an empty Upbound organization, an empty git repository, and a clean Port environment.
 
