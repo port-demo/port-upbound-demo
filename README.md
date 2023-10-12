@@ -45,7 +45,7 @@ After completing the [prerequisites](https://github.com/port-demo/port-upbound-d
     Please note that in `delete-cluster.yaml` and `apply-clusters.yaml`, there is an env var configured:
     ```bash
         env:
-        UPBOUND_ORG_ID: port # To be changed
+            UPBOUND_ORG_ID: port # To be changed
     ```
     The value for this environment variable needs to match the Upbound `Organization ID` we set aside earlier.
 
