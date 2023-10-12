@@ -7,7 +7,7 @@ All needed manifests and information is in this git repository.
 
 # In this repository
 ## <ins>Upbound XR template</ins>
-In `.upbound/examples/cluster.yaml` is the default example provided by the EKSaaS configuration. This file is later used as a template for creating new XRs in the Upbound control planes.
+In the `.upbound/examples/cluster.yaml` file is the default example provided by the EKSaaS configuration. This file is  used as a base template for creating new XRs in the Upbound control planes.
 
 ## <ins>Port assets</ins>
 In this repository, there is a `.port/` directory ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.port)). It holds manifests which will be used in this guide to create blueprints, and their corresponding Port actions.
