@@ -6,29 +6,29 @@ The final goal of this demo is to interact with Upbound using Port, and provide 
 All needed manifests and information is in this git repository.
 
 # In this repository
-## Upbound XR template
+## <ins>Upbound XR template</ins>
 In `.upbound/examples/cluster.yaml` is the default example provided by the EKSaaS configuration. This file is later used as a template for creating new XRs in the Upbound control planes.
 
-## Port assets
+## <ins>Port assets</ins>
 In this repository, there is a `.port/` directory ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.port)). It holds manifests which will be used in this guide to create blueprints, and their corresponding Port actions.
 
-## Github workflows - The Port actions backend
+## <ins>Github workflows - The Port actions backend</ins>
 The `.github/workflows/` directory holds the necessary Github action definitions. These actions will be used as the backend for the different Port actions for interacting with Upbound.
 
 The demo starts off on a completely clean slate - an empty Upbound organization, an empty git repository, and a clean Port environment.
 
 # Prerequisites
-## Upbound
+## <ins>Upbound</ins>
 Before following the guide, you will need to set up an Upbound organization, initialize it and keep track of some information:
 - Save the `Organization ID` for later;
 - Set up the default EKSaaS configuration in the Upbound organization;
 - Create an API token and save it for later.
 
-## Port 
+## <ins>Port</ins>
 It would be best to start off with a clean Port environment. Make sure that the Port organization used in the demo doesn't have any entities or blueprints.
 Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later.
 
-## Git repository
+## <ins>Git repository</ins>
 The actions backend, and the state of the different control planes will be handled in a github repository. For Port to interact with the new Github repo, you will need Port's Github app to be installed.
 
 Create a new git repository, and make sure the Port's Github app is installed on it either by:
@@ -39,7 +39,7 @@ Create a new git repository, and make sure the Port's Github app is installed on
 # Demo guide
 After completing the [prerequisites](https://github.com/port-demo/port-upbound-demo/blob/main/README.md#prerequisites) step, you can start following the guide.
 
-## Setting up the git repository
+## <ins>Setting up the git repository</ins>
 ### Create all the necessary files and directory structure
 - `.github/workflows/` - Copy all of the `.yaml` files from this repository, to the new one in the same directory hierarchy. 
 
