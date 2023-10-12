@@ -26,7 +26,7 @@ jobs:
             CONTROL_PLANE=${CONTROL_PLANE%/}
           
             # Get the kube config for the specific control plane
-            up ctp kubeconfig get -a "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            up ctp kubeconfig get -a port "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
             up ctp kubeconfig get -a port "$CONTROL_PLANE" -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
           done
 
