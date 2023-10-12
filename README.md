@@ -1,30 +1,35 @@
-# Crossplane configuration for "EKS as a Service"
+# Port and Upbound demo
+This is a step-by-step guide for preparing a demo environment to showcase Port + Upbound capabilities, both as a software catalog and self-service hub for developers, and a platform management tool for the platform team.
 
-This repository contains the definition for a [Crossplane configuration](https://docs.crossplane.io/v1.11/concepts/packages/#configuration-packages) that bundles a set of API definitions. This configuration is a starting point for new users who are creating their first control plane in [Upbound](https://console.upbound.io).
+The final goal of this demo is to interact with Upbound using Port, and provide EKSaaS using Upbound's capabilities and control planes as a backend, while reporting data regarding deployed clusters back to Port.
 
-When this configuration is installed on a control plane, the control plane will have APIs to provision fully configured Amazon Elastic Kubernetes Service (EKS) clusters with secure networking, composed using cloud service primitives from the [Upbound Official AWS Provider](https://marketplace.upbound.io/providers/upbound/provider-aws). App deployments can securely connect to the infrastructure they need using secrets distributed directly to the app namespace.
+All needed manifests and information is in this git repository.
 
-## What's Inside
+# In this repository
+## Port assets
+In this repository, there is a `.port/` directory ([link](https://github.com/port-demo/port-upbound-demo/tree/main/.port)). It holds manifests which will be used in this guide to create blueprints, and their corresponding Port actions.
 
-A custom API in [Crossplane](https://docs.crossplane.io/v1.11/getting-started/introduction/) is defined by:
+## Github workflows - The Port actions backend
+The `.github/workflows/` directory holds the necessary Github action definitions. These actions will be used as the backend for the different Port actions for interacting with Upbound.
 
-- a CompositeResourceDefinition (XRD). This defines the schema or shape of the API.
-- A Composition(s). Compositions implement the schema by _composing_ a set of Crossplane managed resources together.
+# Demo setup guide
+The demo starts off on a completely clean slate - an empty Upbound organization, an empty git repository, and a clean Port environment.
 
-For this configuration, the EKS API is defined by:
+## Prerequisites
+### Upbound
+Before following the guide, you will need to set up an Upbound organization, initialize it and keep track of some information:
+- Save the `Organization ID` for later;
+- Set up the default EKSaaS configuration in the Upbound organization;
+- Create an API token and save it for later.
 
-- a [KubernetesCluster](/apis/definition.yaml) type
-- the KubernetesCluster is composed of an [XNetwork](/apis/network/definition.yaml) and [XEKS](/apis/eks/definition.yaml) types.
-- the XNetwork is [composed](/apis/network/composition.yaml) of a the following resources: a VPC, InternetGateway, 4 Subnets, a RouteTable, Routes, 5 RouteTableAssociations, a SecurityGroup, and 2 security group role.
-- the XEKS is [composed](/apis/eks/composition.yaml) of the following resources: Cluster, a NodeGroup, an OpenIDConnectProvider, 2 Roles, 4 RolePolicyAttachments, and ClusterAuth.
+### Port 
+It would be best to start off with a clean Port environment. Make sure that the Port organization used in the demo doesn't have any entities or blueprints.
+Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later.
 
-This repository also contains an [example claim](/.up/examples/cluster.yaml). You can apply this file on your control plane to invoke the EKS API and cause a cluster to be created.
+### Git repository
+The demo, and the state of the different control planes will be handled in a github repository. 
+Create a new git repository, and make sure the Port's Github app is installed on it either by:
+- installing Port's github app on all the repositories in the used Github organization;
+- or by adding the new repository to the allowed repository list of Port's Github app in the organization.
 
-## Next Steps
 
-This repository is a starting point. You should be feel encouraged to:
-
-1) create new API definitions in this same repo
-2) tweak the existing API definition for EKS to your needs
-
-Upbound will automatically detect the commits you make in your repo and build the configuration package for you. To learn more about how to build APIs for your managed control planes in Upbound, read the guide on [Upbound's docs](https://docs.upbound.io).

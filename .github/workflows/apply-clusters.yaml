@@ -6,6 +6,8 @@ on:
 jobs:
   apply-clusters:
     runs-on: ubuntu-latest
+    env:
+      UPBOUND_ORG_ID: port
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,7 +30,7 @@ jobs:
           
             # Get the kube config for the specific control plane
             echo "Fetching kubeconfig for ${CONTROL_PLANE}"
-            up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            up ctp kubeconfig get -a ${{ env.UPBOUND_ORG_ID }} ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
             echo "Applying manifests"
             if find "$CONTROL_PLANE" -maxdepth 1 -type f -name "*.yaml" | read -r; then
               kubectl --kubeconfig kubeconfig.yaml apply -f ./${CONTROL_PLANE}/ --recursive

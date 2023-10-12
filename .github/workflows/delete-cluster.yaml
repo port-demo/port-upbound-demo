@@ -11,6 +11,8 @@ on:
 jobs:
   delete-cluster:
     runs-on: ubuntu-latest
+    env:
+      UPBOUND_ORG_ID: port
     steps:
       - uses: port-labs/port-github-action@v1
         with:
@@ -46,7 +48,7 @@ jobs:
       - name: Connect to Upbound using CLI + Fetch kubeconfig
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          up ctp kubeconfig get -a port ${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+          up ctp kubeconfig get -a ${{ env.UPBOUND_ORG_ID }} ${{ fromJson(inputs.port_payload).payload.entity.relations.upbound_control_plane }} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
 
       - uses: port-labs/port-github-action@v1
         with:
