@@ -23,16 +23,14 @@ jobs:
           up login -t ${{ secrets.UPBOUND_TOKEN }}
           cd .up/clusters
           for CONTROL_PLANE in */ ; do
-            echo "$CONTROL_PLANE"
             # Remove trailing slash to get the clean cluster name
             CONTROL_PLANE=${CONTROL_PLANE%/}
-            echo ${CONTROL_PLANE}
           
             # Get the kube config for the specific control plane
             echo "Fetching kubeconfig for ${CONTROL_PLANE}"
             up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
             echo "Applying manifests"
-            if [[ ! -f ".up/clusters/${CONTROL_PLANE}/*.yaml" ]]; then
+            if [[ -f ".up/clusters/${CONTROL_PLANE}/*.yaml" ]]; then
               kubectl --kubeconfig kubeconfig.yaml apply -f ./${CONTROL_PLANE}/ --recursive
             else
               echo "Control plane directory is empty"
