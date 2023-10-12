@@ -28,6 +28,7 @@ jobs:
             # Get the kube config for the specific control plane
             echo "Fetching kubeconfig for ${CONTROLE_PLANE}"
             up ctp kubeconfig get -a port ${CONTROL_PLANE} -f kubeconfig.yaml --token ${{ secrets.UPBOUND_TOKEN }}
+            echo "Applying manifests"
             kubectl --kubeconfig kubeconfig.yaml apply -f .up/clusters/${CONTROL_PLANE}/ --recursive
           done
 
