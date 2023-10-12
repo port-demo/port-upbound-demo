@@ -1,5 +1,5 @@
 # Port and Upbound demo
-This is a step-by-step guide for preparing a demo environment to showcase Port + Upbound capabilities, both as a software catalog and self-service hub for developers, and a platform management tool for the platform team.
+This is a guide for preparing a demo environment to showcase Port + Upbound capabilities, both as a software catalog and self-service hub for developers, and a platform management tool for the platform team.
 
 The final goal of this demo is to interact with Upbound using Port, and provide EKSaaS using Upbound's capabilities and control planes as a backend, while reporting data regarding deployed clusters back to Port.
 
@@ -35,10 +35,10 @@ Create a new git repository, and make sure the Port's Github app is installed on
 - or by adding the new repository to the allowed repository list of Port's Github app in the organization.
 
 
-# Demo setup guide
-After completing the [prerequisites](https://github.com/port-demo/port-upbound-demo/blob/main/README.md#prerequisites) step, you can start following the set-by-step guide.
+# Demo guide
+After completing the [prerequisites](https://github.com/port-demo/port-upbound-demo/blob/main/README.md#prerequisites) step, you can start following the guide.
 
-## 1. Setting up the git repository
+## Setting up the git repository
 ### Create all the necessary files and directory structure
 - `.github/workflows/` - Copy all of the `.yaml` files from this repository, to the new one in the same directory hierarchy. 
 Please note that in `delete-cluster.yaml` and `apply-clusters.yaml`, there is an env var configured:
