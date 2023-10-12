@@ -21,7 +21,7 @@ jobs:
       - name: Connect to Upbound using CLI an apply manifests to all of the control planes
         run: |
           up login -t ${{ secrets.UPBOUND_TOKEN }}
-          for CONTROL_PLANE in */ ; do
+          for CONTROL_PLANE in .up/clusters/* ; do
             # Remove trailing slash to get the clean cluster name
             CONTROL_PLANE=${CONTROL_PLANE%/}
           
