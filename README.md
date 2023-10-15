@@ -120,6 +120,8 @@ To do this, follow these steps:
 # Using Port
 At this point, everything should be set up. Browse to your [Self-service](https://app.getport.io/self-serve) page to view the different actions you defined in Port, and try them out.
 
+![selfServicePage](https://github.com/port-demo/port-upbound-demo/blob/main/static/selfServicePage.png?raw=true)
+
 
 
 
