@@ -62,7 +62,7 @@ Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using
 * `PORT_CLIENT_SECRET` - The Port organization's client secret.
 
 ## <ins>Setting up Port</ins>
-Starting with a clean Port organization, you will have to create some Port components. These are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
+Starting with a clean Port organization, you will have to create some Port components. These components are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
 
 ### Creating blueprints
 In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are JSON definitions for Port blueprints.
