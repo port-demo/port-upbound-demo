@@ -95,7 +95,7 @@ To create the actions, follow these steps:
 2. Edit click the `...` to open the blueprint's dropdown menu, and click `Edit Json`;
 ![editBlueprintAsJson](https://github.com/port-demo/port-upbound-demo/blob/main/static/editBlueprintAsJson.png?raw=true)
 
-3. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`
+3. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`.
 ![saveBlueprintActions](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveBlueprintActions.png?raw=true)
 
 
