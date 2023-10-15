@@ -36,6 +36,8 @@ Create a new git repository, and make sure that Port's Github app is installed o
 - installing Port's github app on all the repositories in the used Github organization;
 - or by adding the new repository to the allowed repository list of Port's Github app in the organization.
 
+_Save the name of your new repository for later._
+
 
 # Demo guide
 After completing the [prerequisites](https://github.com/port-demo/port-upbound-demo/blob/main/README.md#prerequisites) step, you can start following the guide.
