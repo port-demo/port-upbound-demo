@@ -61,8 +61,7 @@ Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using
 * `PORT_CLIENT_ID` - The Port organization's client id;
 * `PORT_CLIENT_SECRET` - The Port organization's client secret.
 
-## <ins>Setting up the Port</ins>
-
+## <ins>Setting up Port</ins>
 Starting in a clean Port organization, you will have to create some Port components. These are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
 
 ### Creating blueprints
