@@ -61,10 +61,11 @@ Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using
 * `PORT_CLIENT_ID` - The Port organization's client id;
 * `PORT_CLIENT_SECRET` - The Port organization's client secret.
 
-### Set up the Port organization
+## <ins>Setting up the Port</ins>
+
 Starting in a clean Port organization, you will have to create some Port components. These are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
 
-#### Creating blueprints
+### Creating blueprints
 In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are json definitions for Port blueprints.
 
 You will need to create these blueprints in your Port organization. 
@@ -83,7 +84,7 @@ Follow these steps:
 
 *If a blueprint creation fails, make sure it was created in the correct order*
 
-#### Creating actions
+### Creating actions
 In the `.port` folder are 2 `.json` files which define the different actions we need, to trigger the different Github workflows.
 
 You will need to create these action definitions on their appropriate blueprints (notice the filenames `eksCluster-Actions.json` and `eksClusterRequest-Actions.json`).
@@ -102,7 +103,7 @@ To create the actions, follow these steps:
 ![saveBlueprintActions](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveBlueprintActions.png?raw=true)
 
 
-#### Creating Upbound control plane entities
+### Creating Upbound control plane Port entities
 After setting up the Port blueprints and actions, we need to insert some entities manually.
 
 These entities will represent the different Upbound control planes which were created earlier.
