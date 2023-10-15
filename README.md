@@ -50,13 +50,54 @@ After completing the [prerequisites](https://github.com/port-demo/port-upbound-d
     ```
     The value for this environment variable needs to match the Upbound `Organization ID` we set aside earlier.
 
-- `.up/clusters/` - Create this folder in the repository. It will hold subdirectories which will correspond to different Upbound control planes, and each subdirectory will hold all the XR manifests to be deployed in the specific control plane.
+- `.up/clusters/` - Create this folder in the repository. It will hold subdirectories which will correspond to different Upbound control planes. Each subdirectory will hold all the XR manifests to be deployed in the specific control plane.
 
 - `.up/examples/cluster.yaml` - Copy this file to the new repository in the same directory hierarchy.
 
 ### Create repository secrets for the Github actions to use
-Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) to add required secrets to that repository. These are the secrets the need to be created:
+Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) to add required secrets to the repository. These are the secrets the need to be created:
 * `UPBOUND_TOKEN` - The Upbound organization's API token;
 * `PORT_CLIENT_ID` - The Port organization's client id;
 * `PORT_CLIENT_SECRET` - The Port organization's client secret.
+
+### Set up the Port organization
+Starting in a clean Port organization, you will have to create some Port components. These are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
+
+#### Creating blueprints
+In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are json definitions for Port blueprints.
+
+You will need to create these blueprints in your Port organization. 
+
+***Create the blueprints in the order they are numbered ***
+
+Follow these steps:
+1. Create a new custom blueprint from the Builder page;
+![newCustomBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/newCustomBlueprint.png?raw=true)
+
+2. Click the `Edit JSON` button;
+![createBlueprintJson](https://github.com/port-demo/port-upbound-demo/blob/main/static/createBlueprintJson.png?raw=true)
+
+3. Paste the blueprint `.json` contents in the editor and click `Save`.
+![saveNewBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveNewBlueprint.png?raw=true)
+
+*If a blueprint creation fails, make sure it was created in the correct order*
+
+#### Creating actions
+In the `.port` folder are 2 `.json` files which define the different actions we need, to trigger the different Github workflows.
+
+You will need to create these action definitions on their appropriate blueprints (notice the filenames `eksCluster-Actions.json` and `eksClusterRequest-Actions.json`).
+
+To create the actions, follow these steps:
+
+1. Expand the blueprint you wish to create an action for;
+![expandBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/expandBlueprint.png?raw=true)
+
+2. Edit click the `...` to open the blueprint's dropdown menu, and click `Edit Json`;
+![editBlueprintAsJson](https://github.com/port-demo/port-upbound-demo/blob/main/static/editBlueprintAsJson.png?raw=true)
+
+3. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`
+![saveBlueprintActions](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveBlueprintActions.png?raw=true)
+
+
+
 
