@@ -91,7 +91,7 @@
           "type": "string",
           "default": "1"
         },
-        "upbound_control_plane": {
+        "control-plane": {
           "title": "Upbound control plane",
           "type": "string",
           "blueprint": "upbound_control_plane",
