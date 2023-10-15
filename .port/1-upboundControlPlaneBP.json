@@ -1,0 +1,12 @@
+{
+    "identifier": "upbound_control_plane",
+    "title": "Upbound Control Plane",
+    "icon": "Cluster",
+    "schema": {
+      "properties": {},
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+}

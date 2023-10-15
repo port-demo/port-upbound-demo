@@ -1,0 +1,51 @@
+{
+    "identifier": "eks_cluster",
+    "title": "EKS Cluster",
+    "icon": "Cluster",
+    "schema": {
+      "properties": {
+        "node_count": {
+          "icon": "Node",
+          "title": "Node Count",
+          "type": "number",
+          "description": "The cluster's node count"
+        },
+        "node_size": {
+          "icon": "Node",
+          "title": "Node Size",
+          "description": "The cluster's node size",
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "enumColors": {
+            "small": "lightGray",
+            "medium": "lightGray",
+            "large": "lightGray"
+          }
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {
+      "claim_file_url": {
+        "title": "Claim file URL",
+        "icon": "Github",
+        "calculation": "\"https://github.com/port-demo/port-upbound-demo/blob/main/.up/clusters/\" + .identifier + \".yaml\"",
+        "type": "string",
+        "format": "url"
+      }
+    },
+    "relations": {
+      "upbound_control_plane": {
+        "title": "Upbound Control Plane",
+        "description": "The Upbound control plane for this cluster",
+        "target": "upbound_control_plane",
+        "required": false,
+        "many": false
+      }
+    }
+}
