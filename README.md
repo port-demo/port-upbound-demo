@@ -116,7 +116,7 @@ To do this, follow these steps:
 2. Click the `Manually add Upbound Control Plane` button (or the `+ Upbound Control plane` at the top right of the page).
 ![addUpboundControlPlaneManually](https://github.com/port-demo/port-upbound-demo/blob/main/static/addUpboundControlPlaneManually.png?raw=true)
 
-3. In the `Title` field, insert the Upbound control plane `identifier` which we saved earlier and click create (do this step multiple times if there are more than 1 control planes).
+3. In the `identifier` field, insert the Upbound control plane `identifier` which we saved earlier and click create (do this step multiple times if there are more than 1 control planes).
 ![setUpboundControlPlaneIdentifier](https://github.com/port-demo/port-upbound-demo/blob/main/static/setUpboundControlPlaneIdentifier.png?raw=true)
 
 # Using Port
