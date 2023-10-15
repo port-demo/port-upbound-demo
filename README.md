@@ -66,7 +66,7 @@ Follow Github's [guide](https://docs.github.com/en/actions/security-guides/using
 Starting in a clean Port organization, you will have to create some Port components. These are Port [blueprints](https://docs.getport.io/build-your-software-catalog/define-your-data-model/setup-blueprint/#what-is-a-blueprint) and Port [actions](https://docs.getport.io/create-self-service-experiences/).
 
 ### Creating blueprints
-In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are json definitions for Port blueprints.
+In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are JSON definitions for Port blueprints.
 
 You will need to create these blueprints in your Port organization. 
 
