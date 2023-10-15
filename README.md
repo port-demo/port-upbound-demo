@@ -31,7 +31,7 @@ Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later.
 ## <ins>Git repository</ins>
 The actions backend, and the state of the different control planes will be handled in a github repository. For Port to interact with the new Github repo, you will need Port's Github app to be installed.
 
-Create a new git repository, and make sure the Port's Github app is installed on it either by:
+Create a new git repository, and make sure that Port's Github app is installed on it either by:
 - installing Port's github app on all the repositories in the used Github organization;
 - or by adding the new repository to the allowed repository list of Port's Github app in the organization.
 
