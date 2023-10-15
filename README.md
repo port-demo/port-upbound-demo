@@ -27,7 +27,7 @@ Before following the guide, you will need to set up an Upbound organization, ini
 
 ## <ins>Port</ins>
 It would be best to start off with a clean Port environment. Make sure that the Port organization used in the demo doesn't have any entities or blueprints.
-Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later.
+Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later ([how to find your Port credentials](https://docs.getport.io/build-your-software-catalog/sync-data-to-catalog/api/#find-your-port-credentials)).
 
 ## <ins>Git repository</ins>
 The actions backend, and the state of the different control planes will be handled in a github repository. For Port to interact with the new Github repo, you will need Port's Github app to be installed.
