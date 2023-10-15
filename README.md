@@ -30,7 +30,7 @@ It would be best to start off with a clean Port environment. Make sure that the 
 Save the Port organization's `CLIENT_ID` and `CLIENT_SECRET` for later ([how to find your Port credentials](https://docs.getport.io/build-your-software-catalog/sync-data-to-catalog/api/#find-your-port-credentials)).
 
 ## <ins>Git repository</ins>
-The actions backend, and the state of the different control planes will be handled in a github repository. For Port to interact with the new Github repo, you will need Port's Github app to be installed.
+The actions backend, and the state of the different control planes will be handled in a github repository. For Port to interact with the new Github repo, you will need Port's Github app to be installed ([install Port's github app](https://docs.getport.io/build-your-software-catalog/sync-data-to-catalog/git/github/installation)).
 
 Create a new git repository, and make sure that Port's Github app is installed on it either by:
 - installing Port's github app on all the repositories in the used Github organization;
