@@ -22,7 +22,7 @@ The demo starts off on a completely clean slate - an empty Upbound organization,
 Before following the guide, you will need to set up an Upbound organization, initialize it and keep track of some information:
 - Save the `Organization ID` for later;
 - Set up the default EKSaaS configuration in the Upbound organization;
-- Deploy a control plane (or many). Save their `identifiers` for later.
+- Deploy a control plane (or many) and save their `identifiers` for later;
 - Create an API token and save it for later.
 
 ## <ins>Port</ins>
