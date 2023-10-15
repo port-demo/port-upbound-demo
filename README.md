@@ -22,6 +22,7 @@ The demo starts off on a completely clean slate - an empty Upbound organization,
 Before following the guide, you will need to set up an Upbound organization, initialize it and keep track of some information:
 - Save the `Organization ID` for later;
 - Set up the default EKSaaS configuration in the Upbound organization;
+- Deploy a control plane (or many). Save their `identifiers` for later.
 - Create an API token and save it for later.
 
 ## <ins>Port</ins>
@@ -68,7 +69,7 @@ In the `./port` folder are 3 `-BP.json` files numbered 1-3. These are json defin
 
 You will need to create these blueprints in your Port organization. 
 
-***Create the blueprints in the order they are numbered ***
+__Create the blueprints in the order they are numbered__
 
 Follow these steps:
 1. Create a new custom blueprint from the Builder page;
@@ -87,6 +88,8 @@ In the `.port` folder are 2 `.json` files which define the different actions we 
 
 You will need to create these action definitions on their appropriate blueprints (notice the filenames `eksCluster-Actions.json` and `eksClusterRequest-Actions.json`).
 
+_Please note that in each `-Actions.json` file, there are `CHANGE_TO_YOUR_GITHUB_ORG_NAME` and `CHANGE_TO_YOUR_REPO_NAME` values.  You need to replace these with your appropriate Github organization name and repository name._
+
 To create the actions, follow these steps:
 
 1. Expand the blueprint you wish to create an action for;
@@ -97,6 +100,25 @@ To create the actions, follow these steps:
 
 3. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`.
 ![saveBlueprintActions](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveBlueprintActions.png?raw=true)
+
+
+#### Creating Upbound control plane entities
+After setting up the Port blueprints and actions, we need to insert some entities manually.
+
+These entities will represent the different Upbound control planes which were created earlier.
+
+To do this, follow these steps:
+
+1. Navigate to the [Upbound control planes](https://app.getport.io/upbound_control_planes) catalog page.
+
+2. Click the `Manually add Upbound Control Plane` button (or the `+ Upbound Control plane` at the top right of the page).
+![addUpboundControlPlaneManually](https://github.com/port-demo/port-upbound-demo/blob/main/static/addUpboundControlPlaneManually.png?raw=true)
+
+3. In the `Title` field, insert the Upbound control plane `identifier` which we saved earlier and click create (do this step multiple times if there are more than 1 control planes).
+![setUpboundControlPlaneIdentifier](https://github.com/port-demo/port-upbound-demo/blob/main/static/setUpboundControlPlaneIdentifier.png?raw=true)
+
+# Using Port
+At this point, everything should be set up. Browse to your [Self-service](https://app.getport.io/self-serve) page to view the different actions you defined in Port, and try them out.
 
 
 

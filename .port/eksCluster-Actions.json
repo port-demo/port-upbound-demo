@@ -53,8 +53,8 @@
       "omitPayload": false,
       "omitUserInputs": false,
       "reportWorkflowStatus": true,
-      "org": "port-demo",
-      "repo": "port-upbound-demo",
+      "org": "CHANGE_TO_YOUR_GITHUB_ORG_NAME", 
+      "repo": "CHANGE_TO_YOUR_REPO_NAME",
       "workflow": "new-cluster-request.yaml"
     },
     "trigger": "CREATE",
@@ -113,8 +113,8 @@
       "omitPayload": false,
       "omitUserInputs": false,
       "reportWorkflowStatus": true,
-      "org": "port-demo",
-      "repo": "port-upbound-demo",
+      "org": "CHANGE_TO_YOUR_GITHUB_ORG_NAME",
+      "repo": "CHANGE_TO_YOUR_REPO_NAME",
       "workflow": "new-cluster-request.yaml"
     },
     "trigger": "CREATE",
@@ -134,8 +134,8 @@
       "omitPayload": false,
       "omitUserInputs": true,
       "reportWorkflowStatus": true,
-      "org": "port-demo",
-      "repo": "port-upbound-demo",
+      "org": "CHANGE_TO_YOUR_GITHUB_ORG_NAME",
+      "repo": "CHANGE_TO_YOUR_REPO_NAME",
       "workflow": "delete-cluster.yaml"
     },
     "trigger": "DELETE",

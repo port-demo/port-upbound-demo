@@ -12,8 +12,8 @@
       "omitPayload": false,
       "omitUserInputs": true,
       "reportWorkflowStatus": true,
-      "org": "port-demo",
-      "repo": "port-upbound-demo",
+      "org": "CHANGE_TO_YOUR_GITHUB_ORG_NAME",
+      "repo": "CHANGE_TO_YOUR_REPO_NAME",
       "workflow": "approve-cluster-request.yaml"
     },
     "trigger": "DAY-2",
@@ -32,8 +32,8 @@
       "omitPayload": false,
       "omitUserInputs": true,
       "reportWorkflowStatus": true,
-      "org": "port-demo",
-      "repo": "port-upbound-demo",
+      "org": "CHANGE_TO_YOUR_GITHUB_ORG_NAME",
+      "repo": "CHANGE_TO_YOUR_REPO_NAME",
       "workflow": "deny-cluster-request.yaml"
     },
     "trigger": "DAY-2",
