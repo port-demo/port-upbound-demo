@@ -74,13 +74,15 @@ You will need to create these blueprints in your Port organization.
 __Create the blueprints in the order they are numbered__
 
 Follow these steps:
-1. Create a new custom blueprint from the Builder page;
+1. Go to Port's [builder](https://app.getport.io/dev-portal/data-model) screen;
+
+2. Create a new custom blueprint from the Builder page;
 ![newCustomBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/newCustomBlueprint.png?raw=true)
 
-2. Click the `Edit JSON` button;
+3. Click the `Edit JSON` button;
 ![createBlueprintJson](https://github.com/port-demo/port-upbound-demo/blob/main/static/createBlueprintJson.png?raw=true)
 
-3. Paste the blueprint `.json` contents in the editor and click `Save`.
+4. Paste the blueprint `.json` contents in the editor and click `Save`.
 ![saveNewBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveNewBlueprint.png?raw=true)
 
 *If a blueprint creation fails, make sure it was created in the correct order*
@@ -94,13 +96,15 @@ _Please note that in each `-Actions.json` file, there are `CHANGE_TO_YOUR_GITHUB
 
 To create the actions, follow these steps:
 
-1. Expand the blueprint you wish to create an action for;
+1. Go to Port's [builder](https://app.getport.io/dev-portal/data-model) screen;
+
+2. Expand the blueprint you wish to create an action for;
 ![expandBlueprint](https://github.com/port-demo/port-upbound-demo/blob/main/static/expandBlueprint.png?raw=true)
 
-2. Edit click the `...` to open the blueprint's dropdown menu, and click `Edit Json`;
+3. Edit click the `...` to open the blueprint's dropdown menu, and click `Edit Json`;
 ![editBlueprintAsJson](https://github.com/port-demo/port-upbound-demo/blob/main/static/editBlueprintAsJson.png?raw=true)
 
-3. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`.
+4. Switch to the `Actions` tab, and paste the contents of the `-Actions.json` in the editor and click `Save`.
 ![saveBlueprintActions](https://github.com/port-demo/port-upbound-demo/blob/main/static/saveBlueprintActions.png?raw=true)
 
 
