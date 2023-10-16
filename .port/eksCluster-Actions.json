@@ -39,7 +39,8 @@
         }
       },
       "required": [
-        "cluster-name"
+        "cluster-name",
+        "control-plane"
       ],
       "order": [
         "cluster-name",
@@ -99,7 +100,8 @@
         }
       },
       "required": [
-        "cluster-name"
+        "cluster-name",
+        "control-plane"
       ],
       "order": [
         "cluster-name",
