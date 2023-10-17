@@ -104,10 +104,11 @@
         "control-plane"
       ],
       "order": [
+        "control-plane",
         "cluster-name",
         "node-size",
-        "node-count",
-        "upbound_control_plane"
+        "node-count"
+
       ]
     },
     "invocationMethod": {
