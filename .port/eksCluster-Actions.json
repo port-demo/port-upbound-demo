@@ -43,10 +43,10 @@
         "control-plane"
       ],
       "order": [
+        "control-plane",
         "cluster-name",
         "node-size",
-        "node-count",
-        "control-plane"
+        "node-count"
       ]
     },
     "invocationMethod": {
