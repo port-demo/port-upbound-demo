@@ -36,6 +36,8 @@ Create a new git repository, and make sure that Port's Github app is installed o
 - installing Port's github app on all the repositories in the used Github organization;
 - or by adding the new repository to the allowed repository list of Port's Github app in the organization.
 
+Also make sure that Github actions [allow creating and approving pull requests](https://docs.github.com/en/enterprise-cloud@latest/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#preventing-github-actions-from-creating-or-approving-pull-requests) in your repository.
+
 _Save the name of your new repository for later._
 
 
